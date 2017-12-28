@@ -128,7 +128,7 @@ class NamedImageTransformerBaseTestCase(SparkDLTestCase):
         np.testing.assert_array_almost_equal(kerasPredict, tfPredict)
 
     def _rowWithImage(self, img):
-        row = imageIO.imageArrayToStruct(img.astype('uint8'))
+        row = ImageSchema.toImage(img.astype('uint8'))
         # re-order row to avoid pyspark bug
         return [[getattr(row, field.name)
                  for field in ImageSchema.imageSchema['image'].dataType]]

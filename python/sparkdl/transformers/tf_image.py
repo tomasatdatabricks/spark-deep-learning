@@ -161,8 +161,7 @@ class TFImageTransformer(Transformer, HasInputCol, HasOutputCol, HasOutputMode):
         # Assumes that the dtype for all images is the same in the given dataframe.
         pdf = dataset.select(self.getInputCol()).take(1)
         img = pdf[0][self.getInputCol()]
-        img_type = imageIO.imageTypeByOrdinal(img.mode)
-        return img_type.dtype
+        return ImageSchema.ocvTypeByMode(img.mode).nptype
 
     # TODO: duplicate code, same functionality as sparkdl.graph.pieces.py::builSpImageConverter
     # TODO: It should be extracted as a util function and shared
