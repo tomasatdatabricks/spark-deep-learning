@@ -1,3 +1,4 @@
+
 /*
  * Copyright 2017 Databricks, Inc.
  *
@@ -73,9 +74,9 @@ object Models {
     override val graphOutputNode = name + "_sparkdl_output__"
   
     override def graph: GraphDef = ModelFetcher.getFromWeb(
-        "https://s3-us-west-2.amazonaws.com/spark-deep-learning-models/sparkdl-InceptionV3_v1.pb",
-        fileName = "sparkdl-inceptionV3_v1.pb",
-        base64Hash = "8OImhbhTEoacQhEKRDjavT0xpMPH2pH3HQrOAZ1NUtA="
+        "https://s3-us-west-2.amazonaws.com/spark-deep-learning-models/sparkdl-InceptionV3_sparkdl_0.4.0_tf1.6_keras2.1.5.pb",
+        fileName = "sparkdl-InceptionV3_sparkdl_0.4.0_tf1.6_keras2.1.5.pb",
+        base64Hash = "FgHmSuDhWAn5cbwIKU3ioU/oaE5RxlB+6b+r48zmeqM="
     )
   }
     
@@ -114,9 +115,9 @@ object Models {
     override val graphOutputNode = name + "_sparkdl_output__"
   
     override def graph: GraphDef = ModelFetcher.getFromWeb(
-        "https://s3-us-west-2.amazonaws.com/spark-deep-learning-models/sparkdl-ResNet50_v1.pb",
-        fileName = "sparkdl-inceptionV3_v1.pb",
-        base64Hash = "yrnfcbi84GxJjo30eGkl27GAHxig0JsC106v5wQr3gE="
+        "https://s3-us-west-2.amazonaws.com/spark-deep-learning-models/sparkdl-ResNet50_sparkdl_0.4.0_tf1.6_keras2.1.5.pb",
+        fileName = "sparkdl-ResNet50_sparkdl_0.4.0_tf1.6_keras2.1.5.pb",
+        base64Hash = "MqGLhW4gBYx24wrjqqRNms76ocNEEyr25PiEzxV7s/U="
     )
   }
     
@@ -141,9 +142,9 @@ object Models {
     override val graphOutputNode = name + "_sparkdl_output__"
   
     override def graph: GraphDef = ModelFetcher.getFromWeb(
-        "https://s3-us-west-2.amazonaws.com/spark-deep-learning-models/sparkdl-VGG16_v1.pb",
-        fileName = "sparkdl-inceptionV3_v1.pb",
-        base64Hash = "ILVEakOf5arJP11QK4GYDSy8grlUkcfyMR3NqnopXJY="
+        "https://s3-us-west-2.amazonaws.com/spark-deep-learning-models/sparkdl-VGG16_sparkdl_0.4.0_tf1.6_keras2.1.5.pb",
+        fileName = "sparkdl-VGG16_sparkdl_0.4.0_tf1.6_keras2.1.5.pb",
+        base64Hash = "ADxw+IpCLWx085tF8Mmme6U9zRdNUhx9hbxbuvesq0I="
     )
   }
     
@@ -168,9 +169,9 @@ object Models {
     override val graphOutputNode = name + "_sparkdl_output__"
   
     override def graph: GraphDef = ModelFetcher.getFromWeb(
-        "https://s3-us-west-2.amazonaws.com/spark-deep-learning-models/sparkdl-VGG19_v1.pb",
-        fileName = "sparkdl-inceptionV3_v1.pb",
-        base64Hash = "Bq+lSRfPr/Ia0GdkRNBrLhk/cDEEPfHBdOwyVdIm3u4="
+        "https://s3-us-west-2.amazonaws.com/spark-deep-learning-models/sparkdl-VGG19_sparkdl_0.4.0_tf1.6_keras2.1.5.pb",
+        fileName = "sparkdl-VGG19_sparkdl_0.4.0_tf1.6_keras2.1.5.pb",
+        base64Hash = "2OruYGrhLqghb7UczWZPXpxxs8hIqcp87CW5TGhctm0="
     )
   }
     
@@ -186,9 +187,9 @@ object Models {
     override val graphOutputNode = name + "_sparkdl_output__"
   
     override def graph: GraphDef = ModelFetcher.getFromWeb(
-        "https://s3-us-west-2.amazonaws.com/spark-deep-learning-models/sparkdl-Xception_v1.pb",
-        fileName = "sparkdl-inceptionV3_v1.pb",
-        base64Hash = "yUmqmUDfL/0lLI9rukQ5a+v7n2dDXHO4E3OjdhHB5Eo="
+        "https://s3-us-west-2.amazonaws.com/spark-deep-learning-models/sparkdl-Xception_sparkdl_0.4.0_tf1.6_keras2.1.5.pb",
+        fileName = "sparkdl-Xception_sparkdl_0.4.0_tf1.6_keras2.1.5.pb",
+        base64Hash = "fOd+wIrVAWshEzBfdAqDPzhYHhDVMxoE2W+Aw4c3tUc="
     )
   }
   

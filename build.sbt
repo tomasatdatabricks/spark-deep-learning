@@ -1,12 +1,13 @@
 // Your sbt build file. Guides on how to write one can be found at
 // http://www.scala-sbt.org/0.13/docs/index.html
 
-val sparkVer = sys.props.getOrElse("spark.version", "2.1.1")
+val sparkVer = sys.props.getOrElse("spark.version", "2.3.0")
 val sparkBranch = sparkVer.substring(0, 3)
 val defaultScalaVer = sparkBranch match {
   case "2.0" => "2.11.8"
   case "2.1" => "2.11.8"
   case "2.2" => "2.11.8"
+  case "2.3" => "2.11.8"
   case _ => throw new IllegalArgumentException(s"Unsupported Spark version: $sparkVer.")
 }
 val scalaVer = sys.props.getOrElse("scala.version", defaultScalaVer)
@@ -19,7 +20,7 @@ scalaVersion := scalaVer
 spName := "databricks/spark-deep-learning"
 
 // Don't forget to set the version
-version := s"0.3.0-spark$sparkBranch"
+version := s"0.4.0-spark$sparkBranch"
 
 // All Spark Packages need a license
 licenses := Seq("Apache-2.0" -> url("http://opensource.org/licenses/Apache-2.0"))
@@ -34,8 +35,7 @@ sparkComponents ++= Seq("mllib-local", "mllib", "sql")
 
 // add any Spark Package dependencies using spDependencies.
 // e.g. spDependencies += "databricks/spark-avro:0.1"
-spDependencies += s"databricks/tensorframes:0.2.9-s_${scalaMajorVersion}"
-
+spDependencies += s"databricks/tensorframes:0.3.0-s_${scalaMajorVersion}"
 
 // These versions are ancient, but they cross-compile around scala 2.10 and 2.11.
 // Update them when dropping support for scala 2.10
@@ -48,6 +48,7 @@ libraryDependencies ++= Seq(
   "org.scalactic" %% "scalactic" % "3.0.0",
   "org.scalatest" %% "scalatest" % "3.0.0" % "test"
 )
+
 
 assemblyMergeStrategy in assembly := {
   case "requirements.txt" => MergeStrategy.concat

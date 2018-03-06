@@ -29,7 +29,7 @@ import sparkdl.transformers.keras_applications as keras_apps
 from sparkdl.transformers.named_image import (DeepImagePredictor, DeepImageFeaturizer,
                                               _buildTFGraphForName)
 
-from sparkdl.image.image import ImageSchema
+from pyspark.ml.image import ImageSchema
 
 from ..tests import SparkDLTestCase
 from .image_utils import getSampleImageDF
@@ -68,6 +68,8 @@ class NamedImageTransformerBaseTestCase(SparkDLTestCase):
     name = None
     # Allow subclasses to force number of partitions - a hack to avoid OOM issues
     numPartitionsOverride = None
+    kerasComparisonDigits = None
+    featurizerCosineDistanceDigits = 2
 
     @classmethod
     def getSampleImageList(cls):
@@ -197,7 +199,10 @@ class NamedImageTransformerBaseTestCase(SparkDLTestCase):
         dfFeatures = transformer.transform(imageDf).collect()
         dfFeatures = np.array([i.features for i in dfFeatures])
         kerasReshaped = self.kerasFeatures.reshape(self.kerasFeatures.shape[0], -1)
-        np.testing.assert_array_almost_equal(kerasReshaped, dfFeatures)
+        if self.kerasComparisonDigits:
+            np.testing.assert_array_almost_equal(kerasReshaped, dfFeatures, self.kerasComparisonDigits)
+        else:
+            np.testing.assert_array_equal(kerasReshaped, dfFeatures)
 
 
     def test_featurization(self):
@@ -217,7 +222,8 @@ class NamedImageTransformerBaseTestCase(SparkDLTestCase):
                 kerasReshaped[i],
                 features_sc[i]) for i in range(
                 len(features_sc))]
-        np.testing.assert_array_almost_equal(0, diffs, decimal=2)
+
+        np.testing.assert_array_almost_equal(0, diffs, decimal=self.featurizerCosineDistanceDigits)
 
     def test_featurizer_in_pipeline(self):
         """

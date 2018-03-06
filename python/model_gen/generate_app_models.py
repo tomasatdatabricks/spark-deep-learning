@@ -48,8 +48,8 @@ private[sparkdl] object %(name)s extends NamedImageModel {
   override val graphOutputNode = name + "_sparkdl_output__"
 
   override def graph: GraphDef = ModelFetcher.getFromWeb(
-      "https://s3-us-west-2.amazonaws.com/spark-deep-learning-models/sparkdl-%(name)s_v%(version)d.pb",
-      fileName = "sparkdl-inceptionV3_v%(version)d.pb",
+      "https://s3-us-west-2.amazonaws.com/spark-deep-learning-models/%(filename)s",
+      fileName = "%(filename)s",
       base64Hash = "%(base64)s"
   )
 }
@@ -58,7 +58,9 @@ private[sparkdl] object %(name)s extends NamedImageModel {
 def indent(s, lvl):
     return '\n'.join([' '*lvl + x for x in s.split('\n')])
 
-def gen_model(name, license, model, model_file, version=1, featurize=True):
+VERSION = "sparkdl_0.4.0_tf1.6_keras2.1.5"
+
+def gen_model(name, license, model, model_file, version=VERSION, featurize=True):
     g = tf.Graph()
     with tf.Session(graph=g) as session:
         K.set_learning_phase(0)
@@ -75,10 +77,11 @@ def gen_model(name, license, model, model_file, version=1, featurize=True):
         m = model.model(preprocessed=model.preprocess(imageTensor), featurize=featurize)
         outTensor = tf.to_double(tf.reshape(m.output, [-1]), name="%s_sparkdl_output__" % name)
         gdef = tfx.strip_and_freeze_until([outTensor], session.graph, session, False)
+    filename = "sparkdl-%s_%s.pb" % (name, version)
     g2 = tf.Graph()
     with tf.Session(graph=g2) as session:
         tf.import_graph_def(gdef, name='')
-        filename = "sparkdl-%s_v%d.pb" % (name, version)
+
         print 'writing out ', filename
         tf.train.write_graph(g2.as_graph_def(), logdir="./", name=filename, as_text=False)
         with open("./" + filename, "r") as f:
@@ -91,7 +94,7 @@ def gen_model(name, license, model, model_file, version=1, featurize=True):
             "name": name,
             "height": model.inputShape()[0],
             "width": model.inputShape()[1],
-            "version": version,
+            "filename": filename,
             "base64": base64_hash},2))
     return g2
 
