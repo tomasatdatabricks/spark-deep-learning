@@ -112,6 +112,9 @@ class GraphPiecesTest(SparkDLTestCase):
 
             self.assertTrue(np.all(vec_out == mat.flatten()))
 
+
+
+
     def test_bare_keras_module(self):
         """ Keras GraphFunctions should give the same result as standard Keras models """
         img_fpaths = glob(os.path.join(_getSampleJPEGDir(), '*.jpg'))
@@ -121,8 +124,9 @@ class GraphPiecesTest(SparkDLTestCase):
                                       (ResNet50, rsnt.preprocess_input)]:
 
             keras_model = model_gen(weights="imagenet")
-            target_size = tuple(keras_model.input.shape.as_list()[1:-1])
-
+            target_size = (224,224)
+            if model_gen == InceptionV3 or model_gen == Xception:
+                target_size = (299,299)
             _preproc_img_list = []
             for fpath in img_fpaths:
                 img = load_img(fpath, target_size=target_size)
@@ -153,7 +157,7 @@ class GraphPiecesTest(SparkDLTestCase):
         piped_model = GraphFunction.fromList(stages)
 
         for fpath in img_fpaths:
-            target_size = tuple(xcpt_model.input.shape.as_list()[1:-1])
+            target_size = (299,299)
             img = load_img(fpath, target_size=target_size)
             img_arr = np.expand_dims(img_to_array(img), axis=0)
             img_input = xcpt.preprocess_input(img_arr)
