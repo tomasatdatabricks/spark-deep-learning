@@ -35,7 +35,7 @@ sparkComponents ++= Seq("mllib-local", "mllib", "sql")
 
 // add any Spark Package dependencies using spDependencies.
 // e.g. spDependencies += "databricks/spark-avro:0.1"
-spDependencies += s"databricks/tensorframes:0.3.0-s_${scalaMajorVersion}"
+//spDependencies += s"databricks/tensorframes:0.3.0-s_${scalaMajorVersion}"
 
 // These versions are ancient, but they cross-compile around scala 2.10 and 2.11.
 // Update them when dropping support for scala 2.10
@@ -49,6 +49,8 @@ libraryDependencies ++= Seq(
   "org.scalatest" %% "scalatest" % "3.0.0" % "test"
 )
 
+libraryDependencies += "org.tensorflow" % "libtensorflow" % "1.6.0"
+libraryDependencies += "org.tensorflow" % "libtensorflow_jni" % "1.6.0"
 
 assemblyMergeStrategy in assembly := {
   case "requirements.txt" => MergeStrategy.concat
